@@ -37,4 +37,5 @@ Javascript, HTML, CSS
 ## Authors
 
 - [@lautarof25](https://www.github.com/lautarof25)
+- [@DevHousin](https://www.github.com/DevHousin)
 
