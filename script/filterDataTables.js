@@ -3,8 +3,8 @@ const tableDynamic2 = document.querySelector("#tableDynamic2");
 
 let arrayTables = ["2023", "2022", "2021"];
 const selectedTableData = {
-  "spanish": dataTable,
-  "english": dataTableEnglish
+  spanish: dataTable,
+  english: dataTableEnglish,
 };
 
 function createDivWithText(className, text) {
@@ -18,9 +18,18 @@ function createTableElement(dataTable, numberTable) {
   const tableDiv = document.createElement("div");
   tableDiv.className = "d-flex border";
 
-  const headerDiv = createDivWithText("col text-center year", Object.keys(dataTable)[numberTable]);
-  const titleDescriptionDiv = createDivWithText("col-50 bg-grayGray bold", "Descripción");
-  const titleInstitutionDiv = createDivWithText("col-50 bg-grayGray bold", "Institución");
+  const headerDiv = createDivWithText(
+    "col text-center year",
+    Object.keys(dataTable)[numberTable],
+  );
+  const titleDescriptionDiv =
+    currentLanguage == "english"
+      ? createDivWithText("col-50 bg-grayGray bold", "Description")
+      : createDivWithText("col-50 bg-grayGray bold", "Descripción");
+  const titleInstitutionDiv =
+    currentLanguage == "english"
+      ? createDivWithText("col-50 bg-grayGray bold", "Institution")
+      : createDivWithText("col-50 bg-grayGray bold", "Institución");
 
   tableDiv.appendChild(headerDiv);
   tableDiv.appendChild(titleDescriptionDiv);
@@ -29,8 +38,14 @@ function createTableElement(dataTable, numberTable) {
   const tableData = Object.values(dataTable)[numberTable][0];
 
   for (let i = 0; i < tableData.description.length; i++) {
-    const rowDescriptionDiv = createDivWithText("col-50 border-bottom p-1", tableData.description[i]);
-    const rowInstitutionDiv = createDivWithText("col-50 border-bottom border-start p-1", tableData.institution[i]);
+    const rowDescriptionDiv = createDivWithText(
+      "col-50 border-bottom p-1",
+      tableData.description[i],
+    );
+    const rowInstitutionDiv = createDivWithText(
+      "col-50 border-bottom border-start p-1",
+      tableData.institution[i],
+    );
 
     tableDiv.appendChild(rowDescriptionDiv);
     tableDiv.appendChild(rowInstitutionDiv);
@@ -55,8 +70,14 @@ function createTables(tableDynamic) {
 
   const selectedLanguage = select.value;
   const templateFunction = (index) => {
-    if (selectedTableData[selectedLanguage] && Object.keys(selectedTableData[selectedLanguage])[index]) {
-      const tableElement = createTableElement(selectedTableData[selectedLanguage], index);
+    if (
+      selectedTableData[selectedLanguage] &&
+      Object.keys(selectedTableData[selectedLanguage])[index]
+    ) {
+      const tableElement = createTableElement(
+        selectedTableData[selectedLanguage],
+        index,
+      );
       tableDynamic.appendChild(tableElement);
     }
   };
@@ -65,7 +86,9 @@ function createTables(tableDynamic) {
     const tableName = arrayTables[i];
 
     if (Object.keys(selectedTableData[selectedLanguage]).includes(tableName)) {
-      const tableIndex = Object.keys(selectedTableData[selectedLanguage]).indexOf(tableName);
+      const tableIndex = Object.keys(
+        selectedTableData[selectedLanguage],
+      ).indexOf(tableName);
       templateFunction(tableIndex);
     } else if (tableName === "0previous") {
       for (let j = 3; j >= 0; j--) {
@@ -76,7 +99,7 @@ function createTables(tableDynamic) {
 }
 
 function setupTableListeners(checkboxes, tableDynamic) {
-  checkboxes.forEach(table => {
+  checkboxes.forEach((table) => {
     table.addEventListener("click", () => {
       updateArrayTables(table);
       createTables(tableDynamic);
@@ -84,7 +107,13 @@ function setupTableListeners(checkboxes, tableDynamic) {
   });
 }
 
-setupTableListeners(document.querySelectorAll("[name='yearRow']"), tableDynamic);
-setupTableListeners(document.querySelectorAll("[name='yearRow2']"), tableDynamic2);
+setupTableListeners(
+  document.querySelectorAll("[name='yearRow']"),
+  tableDynamic,
+);
+setupTableListeners(
+  document.querySelectorAll("[name='yearRow2']"),
+  tableDynamic2,
+);
 
 createTables(tableDynamic);

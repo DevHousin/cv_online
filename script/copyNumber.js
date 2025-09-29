@@ -6,7 +6,7 @@ const copyButton2 = document.getElementById("copyButton2");
 copyButton.addEventListener("click", copyNumber);
 copyButton2.addEventListener("click", copyNumber);
 
-function copyNumber(){
+function copyNumber() {
   const textToCopy = myTextElement.innerText;
   // Create a temporary textarea element to hold the text and copy it to clipboard
   const tempTextArea = document.createElement("textarea");
@@ -15,12 +15,12 @@ function copyNumber(){
   tempTextArea.select();
   document.execCommand("copy");
   document.body.removeChild(tempTextArea);
-  
+
   // Provide user feedback (optional)
-  copyButton.textContent = "¡Copiado!";
-  copyButton2.textContent = "¡Copied!";
+  copyButton.textContent = "Copied!";
+  copyButton2.textContent = "¡Copiado!";
   setTimeout(function () {
-    copyButton.textContent = "Copiar";
-    copyButton2.textContent = "Copy";
+    copyButton.textContent = "Copy";
+    copyButton2.textContent = "Copiar";
   }, 1500); // Reset the button text after 1.5 seconds
 }

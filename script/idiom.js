@@ -1,3 +1,5 @@
+let currentLanguage = "english"; // Globally scoped for other scripts
+
 const select = document.querySelector("#select");
 const spanish = document.querySelector("#spanish");
 const english = document.querySelector("#english");
@@ -5,10 +7,11 @@ const english = document.querySelector("#english");
 select.addEventListener("change", () => {
   resetArrayTables();
   changeIdiom();
- resetCheckboxes();
+  resetCheckboxes();
 });
 
 function changeIdiom() {
+  currentLanguage = select.value;
   const isEnglishSelected = select.value === "english";
 
   if (isEnglishSelected) {
@@ -28,6 +31,10 @@ function resetArrayTables() {
 }
 
 function resetCheckboxes() {
-    document.querySelectorAll("[name='yearRow']").forEach(check => (check.checked = false));
-    document.querySelectorAll("[name='yearRow2']").forEach(check => (check.checked = false));
+  document
+    .querySelectorAll("[name='yearRow']")
+    .forEach((check) => (check.checked = false));
+  document
+    .querySelectorAll("[name='yearRow2']")
+    .forEach((check) => (check.checked = false));
 }
